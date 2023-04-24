@@ -5,6 +5,7 @@ initialState = {
     name:'',
     email:'',
     password:'',
+    user_id:null,
     loading: false,
     error: ''
 }
@@ -24,6 +25,7 @@ const userSlice = createSlice({
             state.name = action.payload.name
             state.email = action.payload.email
             state.password = action.payload.password
+            state.user_id = action.payload.user_id
             state.loading = false
         })
         builder.addCase(fetchUser.rejected, (state, action) => {
