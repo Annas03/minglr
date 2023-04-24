@@ -17,10 +17,14 @@ const NavBar = () => {
         </div>
         <ul className='flex'>
           <li className='mr-2'>
-            <img className='h-9' src={account}/>
+            <button className='hover:border-b-2 border-b-blue-500'>
+              <img className='h-9' src={account}/>
+            </button>
           </li>
           <li>
+          <button className='hover:border-b-2 border-b-blue-500'>
             <img className='h-9' src={setting}/>
+          </button>
           </li>
         </ul>
       </div>
