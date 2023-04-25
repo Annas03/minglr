@@ -1,4 +1,4 @@
-import { configureStore,createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
@@ -11,7 +11,7 @@ export const fetchPosts = createAsyncThunk('posts/fetchPosts', () => {
     return axios.get('http://localhost:5000/fetchPosts')
 })
 
-const postsSlice = configureStore({
+const postsSlice = createSlice({
     name:'posts',
     initialState,
     extraReducers: (builder) => {

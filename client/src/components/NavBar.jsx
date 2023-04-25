@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux'
 
 const NavBar = () => {
 
-  const userName = useSelector(state => state.user.name)
+  // const userName = useSelector(state => state.user.name)
 
   return (
     <div className="z-10 backdrop-blur p-2 border-b border-gray-400 flex justify-between fixed">
@@ -22,13 +22,13 @@ const NavBar = () => {
         </div>
         <ul className='flex'>
           <li className='mr-2'>
-            <Link to={`${userName}`}>
+            <Link to="Annas">
               <img className='h-9' src={account}/>
             </Link>
           </li>
           <li>
           <button className='hover:border-b-2 border-b-blue-500'>
-            <img className='h-9' src={setting} onClick={() => usenavigate('')}/>
+            <img className='h-9' src={setting}/>
           </button>
           </li>
         </ul>

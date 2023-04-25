@@ -3,7 +3,7 @@ import minglr from "../assets/medium.svg"
 import Login from './Login'
 import SignUp from './SignUp'
 
-const LandingPage = ({setLoggedIn}) => {
+const LandingPage = () => {
 
   const [togglePage, setTogglePage] = useState('')
   
@@ -21,7 +21,7 @@ const LandingPage = ({setLoggedIn}) => {
           <p className='font-semibold text-xl'>A social Media App on which you can connect to your friends, share and posts images, videos and texts. You can comment and like posts of your friends.</p>
         </div>
         <div className='max-w-md'>
-          {togglePage == 'signup' ? <SignUp setTogglePage={setTogglePage} setLoggedIn={setLoggedIn}/> : <Login setTogglePage={setTogglePage} setLoggedIn={setLoggedIn}/>}
+          {togglePage == 'signup' ? <SignUp setTogglePage={setTogglePage}/> : <Login setTogglePage={setTogglePage}/>}
         </div>
       </div>
     </div>

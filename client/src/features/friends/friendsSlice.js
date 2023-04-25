@@ -1,4 +1,4 @@
-import { configureStore, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios'
 
 const initialState = {
@@ -11,9 +11,9 @@ export const fetchFriends = createAsyncThunk('friends/fetchFriends', (user_id) =
     return axios.get("http://localhost:5000/fetchFriends/", user_id).then(response => response)
 })
 
-const friendsSlice = configureStore({
+const friendsSlice = createSlice({
     name:'friends',
-    initialState,
+    initialState,  
     extraReducers: (builder) => {
         builder.addCase(fetchFriends.pending, state => {
             state.loading = true

@@ -1,13 +1,20 @@
 import { useState } from 'react'
-// import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from './components/HomePage'
 import LandingPage from './components/LandingPage';
+import UserView from './features/user/UserView';
 
 function App() {
-  const [isLoggedIn, setLoggedIn] = useState(localStorage.getItem('Auth-token'))
+  
   return (
     <>
-    {!isLoggedIn ? <LandingPage setLoggedIn={setLoggedIn}/> : <HomePage/>}
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LandingPage/>}/>
+        <Route path="/home/*" element={<HomePage/>}/>
+        <Route path="/Annas" element={<UserView/>}/>
+      </Routes>
+    </BrowserRouter>
     </>
   )
 }
