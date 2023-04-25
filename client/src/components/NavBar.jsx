@@ -1,10 +1,15 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 import minglr from "../assets/medium.svg"
 import search from "../assets/search.png"
 import account from "../assets/account.png"
 import setting from "../assets/settings.png"
+import { useSelector } from 'react-redux'
 
 const NavBar = () => {
+
+  const userName = useSelector(state => state.user.name)
+
   return (
     <div className="z-10 backdrop-blur p-2 border-b border-gray-400 flex justify-between fixed">
         <div className='flex lg:ml-4'>
@@ -17,13 +22,13 @@ const NavBar = () => {
         </div>
         <ul className='flex'>
           <li className='mr-2'>
-            <button className='hover:border-b-2 border-b-blue-500'>
+            <Link to={`${userName}`}>
               <img className='h-9' src={account}/>
-            </button>
+            </Link>
           </li>
           <li>
           <button className='hover:border-b-2 border-b-blue-500'>
-            <img className='h-9' src={setting}/>
+            <img className='h-9' src={setting} onClick={() => usenavigate('')}/>
           </button>
           </li>
         </ul>
