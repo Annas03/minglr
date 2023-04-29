@@ -1,5 +1,5 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import minglr from "../assets/medium.svg"
 import search from "../assets/search.png"
 import account from "../assets/account.png"
@@ -9,13 +9,14 @@ import { useSelector } from 'react-redux'
 const NavBar = () => {
 
   // const userName = useSelector(state => state.user.name)
+  const navigate = useNavigate()
 
   return (
     <div className="z-10 backdrop-blur p-2 border-b border-gray-400 flex justify-between fixed">
-        <div className='flex lg:ml-4'>
+        <button className='flex lg:ml-4' onClick={() => {navigate('/home')}}>
           <img src={minglr} className='h-10'/>
           <h1 className='text-2xl pt-0.5 ml-2 font-bold'>MinglR</h1>
-        </div>
+        </button>
         <div className='relative mr-96 ml-56'>
           <img className='h-6 mt-1.5 ml-1 absolute' src={search}/>
           <input placeholder='Search..' className='bg-white w-96 rounded-md pl-8 text-lg py-1'/>

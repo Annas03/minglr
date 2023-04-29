@@ -12,7 +12,7 @@ const userView = () => {
             <p className='font-medium'>120 friends</p>
           </div>
         </div>
-        <button className='border border-black rounded-md h-10 px-2 font-medium text-lg mt-4'>create Post</button>
+        <button className='border border-black rounded-md h-10 px-2 font-medium text-lg'>create post</button>
       </div>
     </div>
   )
