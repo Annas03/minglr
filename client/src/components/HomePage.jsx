@@ -25,13 +25,6 @@ const HomePage = () => {
           </div>}/>
         <Route path='Annas' element={<UserView/>}/>
       </Routes>
-      {/* <div className='max-w-7xl mx-auto'>
-          <NavBar/>
-        <div className='flex justify-between'>
-          <Friends/>
-          <Posts/>
-        </div>
-      </div> */}
     </div>
   )
 }
