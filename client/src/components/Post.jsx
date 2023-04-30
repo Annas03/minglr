@@ -21,7 +21,7 @@ const Post = ({name, dp, content, contentType, likes, comment}) => {
     }
 
   return (
-    <div className='bg-gray-100 border border-gray-400 rounded-3xl mb-4'>
+    <div className='bg-white rounded-xl mb-4'>
         <div className='flex py-3 px-4'>
             <img className='h-6 mt-0.5' src={dp}/>
             <h1 className='ml-2 font-medium text-xl'>{name}</h1>

@@ -4,6 +4,8 @@ import minglr from "../assets/medium.svg"
 import search from "../assets/search.png"
 import account from "../assets/account.png"
 import setting from "../assets/settings.png"
+import message from '../assets/message.png'
+import notification from '../assets/notifications.png'
 import { useSelector } from 'react-redux'
 
 const NavBar = () => {
@@ -12,24 +14,36 @@ const NavBar = () => {
   const navigate = useNavigate()
 
   return (
-    <div className="z-10 backdrop-blur p-2 border-b border-gray-400 flex justify-between fixed">
+    <div className="z-10 p-2 max-w-screen-2xl mx-auto flex justify-between">
+      <div className='relative flex'>
         <button className='flex lg:ml-4' onClick={() => {navigate('/home')}}>
-          <img src={minglr} className='h-10'/>
-          <h1 className='text-2xl pt-0.5 ml-2 font-bold'>MinglR</h1>
+          <img src={minglr} className='h-8'/>
+          <h1 className='text-2xl ml-1.5 font-bold'>MinglR</h1>
         </button>
-        <div className='relative mr-96 ml-56'>
-          <img className='h-6 mt-1.5 ml-1 absolute' src={search}/>
-          <input placeholder='Search..' className='bg-white w-96 rounded-md pl-8 text-lg py-1'/>
+        <div className='relative ml-10 mt-1'>
+          <img className='h-4 mt-2.5 ml-2 absolute' src={search}/>
+          <input placeholder='Search..' className='bg-gray-200 w-64 rounded-md pl-8 text-md py-1'/>
         </div>
-        <ul className='flex'>
-          <li className='mr-2'>
+      </div>
+        <ul className='flex justify-between w-48 mt-1'>
+          <li>
             <Link to="Annas">
-              <img className='h-9' src={account}/>
+              <img className='h-6 hover:animate-wiggle' src={account}/>
             </Link>
           </li>
           <li>
-          <button className='hover:border-b-2 border-b-blue-500'>
-            <img className='h-9' src={setting}/>
+          <button>
+            <img className='h-6 hover:animate-wiggle' src={message}/>
+          </button>
+          </li>
+          <li>
+          <button>
+            <img className='h-6 hover:animate-wiggle' src={notification}/>
+          </button>
+          </li>
+          <li>
+          <button>
+            <img className='h-6 hover:animate-spin-slow' src={setting}/>
           </button>
           </li>
         </ul>
