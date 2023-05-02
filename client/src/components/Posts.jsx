@@ -10,8 +10,11 @@ const Posts = () => {
     {name:"Ahsan", dp:account, content:vec_img, contentType:"image", likes:4, comment:1}])
 
   return (
-    <div className='w-1/2'>
-        {postlist.map((p)=><Post name={p.name} dp={p.dp} content={p.content} contentType={p.contentType} likes={p.likes} comment={p.comment}/>)}
+    // <div className='w-1/2'>
+    //     {postlist.map((p)=><Post name={p.name} dp={p.dp} content={p.content} contentType={p.contentType} likes={p.likes} comment={p.comment}/>)}
+    // </div>
+    <div className="px-2 col-span-3">
+      {postlist.map((p)=><Post name={p.name} dp={p.dp} content={p.content} contentType={p.contentType} likes={p.likes} comment={p.comment}/>)}
     </div>
   )
 }
