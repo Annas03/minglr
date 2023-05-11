@@ -64,7 +64,7 @@ const Post = ({name, dp, content, contentType, likes, comment}) => {
       <div className="mt-4">
         {contentType !== 'text' ? <img src={content} alt="Post" className="mt-4 rounded-lg" /> : <p className="text-lg">{content}</p>}
       </div>
-      <div className="flex items-center justify-between mt-4">
+      <div className="flex items-center justify-between mt-4 pt-2 border-t border-gray-300">
           <button onClick={toggleLike} className="flex items-center">
             {isLiked ? <img className='w-5 h-5 mr-1 mt-0.5' src={liked}/> : <img className='h-5 mr-1 mt-0.5' src={like}/>}
             <p className="text-gray-600">3 Likes</p>
@@ -75,7 +75,7 @@ const Post = ({name, dp, content, contentType, likes, comment}) => {
         </button>
       </div>
       {comments && msgs.map((m)=><CommentPopup name={m.name} msg={m.msg}/>)}
-      <div className='relative pt-4'>
+      <div className='relative pt-4 mt-2'>
           <img className='absolute h-6 mt-1.5 ml-2 rounded-full' src='https://randomuser.me/api/portraits/men/1.jpg'/>
           <input type="text" placeholder='Add a Comment here..' className='text-md w-full pl-9 py-1.5 border border-gray-400 rounded-lg' />
       </div>
