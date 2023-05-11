@@ -30,7 +30,7 @@ const Friends = () => {
     // </div>
 
     <div className="bg-white rounded-lg shadow-lg p-6 col-span-2 h-min">
-      <h2 className="text-lg font-medium mb-2 text-center">Friends</h2>
+      <h2 className="text-lg font-medium mb-2">Friends</h2>
       <ul className="divide-y divide-gray-300">
         {friends.map((friend) => (<Friend key={friend.name} name={friend.name} photo={friend.photo} active={friend.active}/>))}
       </ul>

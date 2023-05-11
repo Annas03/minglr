@@ -52,9 +52,9 @@ const Post = ({name, dp, content, contentType, likes, comment}) => {
     <div className="bg-white rounded-lg shadow-md p-6 mb-6">
       <div className="flex items-center">
         <img
-          src={dp}
+          src='https://randomuser.me/api/portraits/men/1.jpg'
           alt={name}
-          className="w-10 h-10 rounded-full mr-4"
+          className="w-10 h-10 rounded-full mr-2"
         />
         <div>
           <p className="font-bold">{name}</p>
@@ -76,8 +76,8 @@ const Post = ({name, dp, content, contentType, likes, comment}) => {
       </div>
       {comments && msgs.map((m)=><CommentPopup name={m.name} msg={m.msg}/>)}
       <div className='relative pt-4'>
-          <img className='absolute h-5 mt-2 ml-2' src={account}/>
-          <input type="text" placeholder='Add a Comment here..' className='text-md w-full pl-9 py-1 border border-gray-400 rounded-lg' />
+          <img className='absolute h-6 mt-1.5 ml-2 rounded-full' src='https://randomuser.me/api/portraits/men/1.jpg'/>
+          <input type="text" placeholder='Add a Comment here..' className='text-md w-full pl-9 py-1.5 border border-gray-400 rounded-lg' />
       </div>
     </div>
   )

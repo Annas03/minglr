@@ -60,23 +60,23 @@ const NavBar = () => {
             </div>
           </div>
           <nav>
-            <ul className="flex justify-center">
-            <li className='ml-6'>
+            <ul className="flex justify-center mt-2">
+            <li className='ml-8'>
              <Link to="Annas">
-               <img className='h-6 hover:animate-wiggle' src={account}/>
+               <img className='h-6 w-6 rounded-full transition ease-in-out delay-50 hover:scale-125' src='https://randomuser.me/api/portraits/men/1.jpg'/>
              </Link>
            </li>
-              <li className="ml-6">
+              <li className="ml-8">
               <button>
-                 <img className='h-6 hover:animate-wiggle' src={message}/>
+                 <img className='h-6 transition ease-in-out delay-50 hover:scale-125' src={message}/>
                </button>
                </li>
-               <li className="ml-6">
+               <li className="ml-8">
                <button>
-                 <img className='h-6 hover:animate-wiggle' src={notification}/>
+                 <img className='h-6 transition ease-in-out delay-50 hover:scale-125' src={notification}/>
                </button>
                </li>
-               <li className="ml-6">
+               <li className="ml-8">
                <button>
                  <img className='h-6 hover:animate-spin-slow' src={setting}/>
                </button>
