@@ -3,11 +3,11 @@ import account from "../assets/account.png"
 
 const CommentPopup = ({name, msg}) => {
   return (
-    <div className='p-2 flex rounded-xl mx-4'>
-        <img className='h-8 mt-1.5' src={account}/>
+    <div className='px-2 pb-3 pt-1 flex rounded-md my-3 border shadow-md'>
+        <img className='h-9 w-9 rounded-full mt-1' src='https://randomuser.me/api/portraits/men/1.jpg'/>
         <div className='ml-2'>
-            <h1 className='font-semibold'>{name}</h1>
-            <p className='text-sm'>{msg}</p>
+            <h1 className='font-medium'>{name}</h1>
+            <p className='text-xs'>{msg}</p>
         </div>
     </div>
   )

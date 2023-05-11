@@ -65,24 +65,19 @@ const Post = ({name, dp, content, contentType, likes, comment}) => {
         {contentType !== 'text' ? <img src={content} alt="Post" className="mt-4 rounded-lg" /> : <p className="text-lg">{content}</p>}
       </div>
       <div className="flex items-center justify-between mt-4">
-        <div className="flex items-center">
-          <svg className="w-6 h-6 text-gray-600 mr-1" viewBox="0 0 20 20">
-            <path
-              fill="currentColor"
-              d="M10 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm0-2a6 6 0 1 0 0-12 6 6 0 0 0 0 12zm-2.25-5.5a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 0 1.5h-3.5a.75.75 0 0 1-.75-.75zm0-2.5a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 0 1.5h-3.5a.75.75 0 0 1-.75-.75zm0-2.5a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 0 1.5h-3.5a.75.75 0 0 1-.75-.75z"
-            ></path>
-          </svg>
-          <p className="text-gray-600">3 Likes</p>
-        </div>
-        <div className="flex items-center">
-          <svg className="w-6 h-6 text-gray-600 mr-1" viewBox="0 0 20 20">
-            <path
-              fill="currentColor"
-              d="M17 5a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-4l-2 2V15H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h12zm0 2H5v8h4.83l1.67 1.67L12.33 15H17V7zm-7 5v2H8v-2h2z"
-            ></path>
-          </svg>
+          <button onClick={toggleLike} className="flex items-center">
+            {isLiked ? <img className='w-5 h-5 mr-1 mt-0.5' src={liked}/> : <img className='h-5 mr-1 mt-0.5' src={like}/>}
+            <p className="text-gray-600">3 Likes</p>
+          </button>
+        <button onClick={toggleComments} className='flex items-center'>
+          <img className='h-5 mr-1 mt-0.5' src={commenticon}/>
           <p className="text-gray-600">4 Comments</p>
-        </div>
+        </button>
+      </div>
+      {comments && msgs.map((m)=><CommentPopup name={m.name} msg={m.msg}/>)}
+      <div className='relative pt-4'>
+          <img className='absolute h-5 mt-2 ml-2' src={account}/>
+          <input type="text" placeholder='Add a Comment here..' className='text-md w-full pl-9 py-1 border border-gray-400 rounded-lg' />
       </div>
     </div>
   )

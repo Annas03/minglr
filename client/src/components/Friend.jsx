@@ -1,11 +1,19 @@
 import React from 'react'
 
-const Friend = ({name, dp}) => {
+const Friend = ({name, photo, active}) => {
+
   return (
-    <div className='flex py-1'>
-        <img className='h-6 mt-0.5' src={dp}/>
-        <h1 className='mb-1 text-lg font-medium ml-2'>{name}</h1>
-    </div>
+    <li key={name} className="flex items-center py-4">
+      <img className="h-8 w-8 rounded-full mr-2" src={photo} alt={name} />
+      <div>
+        <p className="font-medium">{name}</p>
+        {active ? (
+          <p className="text-green-500">Active</p>
+        ) : (
+          <p className="text-gray-500">Inactive</p>
+        )}
+      </div>
+    </li>
   )
 }
 

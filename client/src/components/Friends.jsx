@@ -29,20 +29,10 @@ const Friends = () => {
     //     {friend.map((f)=><Friend name={f.name} dp={f.dp}/>)}
     // </div>
 
-    <div className="bg-white rounded-lg shadow-lg p-6 col-span-2">
+    <div className="bg-white rounded-lg shadow-lg p-6 col-span-2 h-min">
       <h2 className="text-lg font-medium mb-2 text-center">Friends</h2>
       <ul className="divide-y divide-gray-300">
-        {friends.map((friend) => (<li key={friend.name} className="flex items-center py-4">
-            <img className="h-8 w-8 rounded-full mr-2" src={friend.photo} alt={friend.name} />
-            <div>
-              <p className="font-medium">{friend.name}</p>
-              {friend.active ? (
-                <p className="text-green-500">Active</p>
-              ) : (
-                <p className="text-gray-500">Inactive</p>
-              )}
-            </div>
-            </li>))}
+        {friends.map((friend) => (<Friend key={friend.name} name={friend.name} photo={friend.photo} active={friend.active}/>))}
       </ul>
     </div>
   )

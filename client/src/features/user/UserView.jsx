@@ -6,9 +6,9 @@ const userView = () => {
     <div className='max-w-7xl pt-32 mx-auto'>
       <div className='flex justify-between items-center border-b border-black max-w-6xl mx-auto px-2 pb-4 pt-0'>
         <div className='flex'>
-          <img className='h-20 rounded-full border border-black' src={account}/>
+          <img className='h-20 rounded-full' src='https://randomuser.me/api/portraits/men/1.jpg'/>
           <div className='pt-2 pl-2'>
-            <h1 className="text-2xl font-semibold">userName</h1>
+            <h1 className="text-2xl font-semibold">Annas</h1>
             <p className='font-medium'>120 friends</p>
           </div>
         </div>
