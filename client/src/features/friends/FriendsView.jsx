@@ -1,20 +1,22 @@
 import React, { useEffect } from 'react'
-import { useSelector, useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { fetchFriends } from './friendsSlice'
 import Friend from '../../components/Friend'
 
 const FriendsView = () => {
 
     const friendList = useSelector( state => state.friends.friends )
-    const userName = useSelector( state => state.user.name )
+    const userEmail = useSelector( state => state.user.email )
     const dispatch = useDispatch()
 
-    useEffect(() => dispatch(fetchFriends(userName)) , [])
+    useEffect(() => dispatch(fetchFriends(userEmail)) , [])
 
   return (
-    <div className='bg-gray-100 border border-gray-400 rounded-3xl p-4 mt-20 ml-2 w-80 max-h-96 fixed'>
-        <h1 className='text-center font-semibold text-xl'>Friends</h1>
-        {friendList.map((friend)=><Friend name={friend.name} dp={friend.dp}/>)}
+    <div className="bg-white rounded-lg shadow-lg p-6 col-span-2 h-min">
+      <h2 className="text-lg font-medium mb-2">Friends</h2>
+      <ul className="divide-y divide-gray-300">
+        {friendList.map((friend) => (<Friend key={friend.name} name={friend.name} photo={friend.photo} active={friend.active}/>))}
+      </ul>
     </div>
   )
 }

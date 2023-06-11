@@ -7,8 +7,12 @@ const initialState = {
     error:''
 }
 
-export const fetchFriends = createAsyncThunk('friends/fetchFriends', (user_id) => {
-    return axios.get("http://localhost:5000/fetchFriends/", user_id).then(response => response)
+export const fetchFriends = createAsyncThunk('friends/fetchFriends/', async (userEmail) => {
+    return axios.get("http://localhost:5000/fetchFriends/", {
+        params: {
+          email: userEmail
+        }
+      }).then(response => response)
 })
 
 const friendsSlice = createSlice({
