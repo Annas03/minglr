@@ -6,10 +6,10 @@ import Friend from '../../components/Friend'
 const FriendsView = () => {
 
     const friendList = useSelector( state => state.friends.friends )
-    const userEmail = useSelector( state => state.user.email )
+    // const userEmail = useSelector( state => state.user.email )
     const dispatch = useDispatch()
 
-    useEffect(() => dispatch(fetchFriends(userEmail)) , [])
+    useEffect(() => dispatch(fetchFriends(2)) , [])
 
   return (
     <div className="bg-white rounded-lg shadow-lg p-6 col-span-2 h-min">

@@ -1,6 +1,7 @@
 import React from 'react'
 import NavBar from './NavBar'
 import Friends from './Friends'
+import FriendsView from '../features/friends/FriendsView'
 import Posts from './Posts'
 import { Routes ,Route } from 'react-router'
 import {useSelector} from 'react-redux'
@@ -57,7 +58,7 @@ const HomePage = () => {
                   <p>Some information about you goes here.</p>
                 </div>
                 <Posts/>
-                <Friends/>
+                <FriendsView/>
               </div>
             }/>
             <Route path='Annas' element={<UserView/>}/>

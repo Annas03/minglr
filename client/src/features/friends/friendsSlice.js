@@ -8,11 +8,14 @@ const initialState = {
 }
 
 export const fetchFriends = createAsyncThunk('friends/fetchFriends/', async (userEmail) => {
-    return axios.get("http://localhost:5000/fetchFriends/", {
+    return axios.get("http://localhost:5000/fetchFriends/2", {
         params: {
           email: userEmail
         }
-      }).then(response => response)
+      }).then(response => {
+        console.log(response.data)
+        return response.data
+    })
 })
 
 const friendsSlice = createSlice({
@@ -33,4 +36,4 @@ const friendsSlice = createSlice({
     }
 })
 
-export default friendsSlice
+export default friendsSlice.reducer
