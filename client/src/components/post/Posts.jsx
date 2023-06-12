@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import Post from './Post'
-import account from "../assets/account.png"
-import vec_img from "../assets/vec_img.jpg"
+import account from "../../assets/account.png"
+import vec_img from "../../assets/vec_img.jpg"
+import LoadingPosts from '../Loading/LoadingPosts'
 
 const Posts = () => {
 
@@ -10,11 +11,9 @@ const Posts = () => {
     {name:"Ahsan", dp:account, content:vec_img, contentType:"image", likes:4, comment:1}])
 
   return (
-    // <div className='w-1/2'>
-    //     {postlist.map((p)=><Post name={p.name} dp={p.dp} content={p.content} contentType={p.contentType} likes={p.likes} comment={p.comment}/>)}
-    // </div>
     <div className="px-2 col-span-3">
-      {postlist.map((p)=><Post name={p.name} dp={p.dp} content={p.content} contentType={p.contentType} likes={p.likes} comment={p.comment}/>)}
+      {postlist ? postlist.map((p)=><Post name={p.name} dp={p.dp} content={p.content} contentType={p.contentType} likes={p.likes} comment={p.comment}/>) : <LoadingPosts/>}
+      
     </div>
   )
 }

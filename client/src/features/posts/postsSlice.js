@@ -7,8 +7,14 @@ const initialState = {
     error:''
 }
 
-export const fetchPosts = createAsyncThunk('posts/fetchPosts', () => {
-    return axios.get('http://localhost:5000/fetchPosts')
+export const fetchPosts = createAsyncThunk('posts/fetchPosts', async (userEmail) => {
+    return axios.get('http://localhost:5000/fetchPosts', {
+        params:{
+            email: userEmail
+        }
+    }).then(response => {
+        return response.data
+    })
 })
 
 const postsSlice = createSlice({

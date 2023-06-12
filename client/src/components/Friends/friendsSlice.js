@@ -8,6 +8,7 @@ const initialState = {
 }
 
 export const fetchFriends = createAsyncThunk('friends/fetchFriends/', async (userEmail) => {
+    setTimeout(() => {}, 1000)
     return axios.get("http://localhost:5000/fetchFriends/2", {
         params: {
           email: userEmail

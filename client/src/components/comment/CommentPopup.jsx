@@ -1,5 +1,4 @@
 import React from 'react'
-import account from "../assets/account.png"
 
 const CommentPopup = ({name, msg}) => {
   return (

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import minglr from "../assets/medium.svg"
 import Login from './Login'
-import SignUp from './SignUp'
+import SignUp from './signup'
 
 const LandingPage = () => {
 

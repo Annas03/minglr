@@ -1,11 +1,10 @@
 import React from 'react'
 import {Link, useNavigate} from 'react-router-dom'
-import minglr from "../assets/medium.svg"
-import search from "../assets/search.png"
-import account from "../assets/account.png"
-import setting from "../assets/settings.png"
-import message from '../assets/message.png'
-import notification from '../assets/notifications.png'
+import search from "../../assets/search.png"
+import account from "../../assets/account.png"
+import setting from "../../assets/settings.png"
+import message from '../../assets/message.png'
+import notification from '../../assets/notifications.png'
 import { useSelector } from 'react-redux'
 
 const NavBar = () => {
