@@ -17,7 +17,7 @@ const FriendsView = () => {
     <div className="bg-white rounded-lg shadow-lg p-6 col-span-2 h-min">
       <h2 className="text-lg font-medium mb-2">Friends</h2>
       {loading ? <LoadingFriends/> : <ul className="divide-y divide-gray-300">
-        {friendList.map((friend) => (<Friend key={friend.name} name={friend.name} photo={friend.photo} active={friend.active}/>))}
+        {friendList.length != 0 ? friendList.map((friend) => (<Friend key={friend.name} name={friend.name} photo={friend.photo} active={friend.active}/>)) : <p className="text-lg font-medium mb-2">No Friends!</p>}
       </ul>}
     </div>
   )
