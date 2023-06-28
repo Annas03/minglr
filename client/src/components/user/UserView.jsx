@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import account from '../../assets/account.png'
-import Posts from '../../components/post/Posts'
-import AboutMe from '../../components/AboutMe/index'
+import Posts from '../post/Posts'
+import AboutMe from '../AboutMe/index'
 import bg from '../../assets/bg.jpeg'
 
 const userView = () => {

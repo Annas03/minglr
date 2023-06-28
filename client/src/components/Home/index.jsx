@@ -4,11 +4,10 @@ import FriendsView from '../Friends/FriendsView'
 import Posts from '../post/Posts'
 import { Routes ,Route } from 'react-router'
 import {useSelector} from 'react-redux'
-import UserView from '../../features/user/UserView'
+import UserView from '../user/UserView'
 import AboutMe from '../AboutMe/index'
 
 const HomePage = () => {
-  // const userName = useSelector(state => state.user.name)
 
   return (
     <div className="bg-gray-100 min-h-screen max-h-max">
