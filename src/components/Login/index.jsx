@@ -1,15 +1,22 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchUser } from '../user/userSlice'
+import Error from '../error'
 
 const Login = ({setTogglePage}) => {
 
     const [userName, setUserName] = useState('')
     const [userPassword, setUserPassword] = useState('')
 
+    const dispatch = useDispatch()
+
     const navigate = useNavigate()
 
-    const clickedLogIn = () => {
-      navigate('/home')
+    const clickedLogIn = async () => {
+      const response  = dispatch(fetchUser(userName, userPassword))
+      console.log(response)
+      !response.error ? navigate('/home') : <Error/>
     }
 
   return (
