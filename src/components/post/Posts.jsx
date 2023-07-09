@@ -1,12 +1,22 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import Post from './Post'
 import account from "../../assets/account.png"
 import vec_img from "../../assets/vec_img.jpg"
 import LoadingPosts from '../Loading/LoadingPosts'
 import imageUpload from "../../assets/camera-plus.png"
 import videoUpload from "../../assets/video-upload.png"
+import { fetchAllPosts } from './postsSlice'
+import NewPost from '../NewPost/index'
 
-const Posts = () => {
+const Posts = ({setNewPost}) => {
+
+  const postList = useSelector( state => state.posts.posts )  
+  console.log(postList)
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {dispatch(fetchAllPosts())} , [])
 
     const [postText, setPostText] = useState('')
     const postlist = [
@@ -21,7 +31,7 @@ const Posts = () => {
             src='https://randomuser.me/api/portraits/men/1.jpg'
             className="w-10 h-10 rounded-full mr-2"
           />
-          <input type="text" placeholder='What is on your mind?' className='focus:outline-none bg-gray-100 w-11/12 rounded-3xl py-1 px-3' value={postText} onChange={(e) => {setPostText(e.target.value)}} />
+          <button className='focus:outline-none bg-gray-100 w-11/12 text-left hover:bg-gray-300 text-gray-400 rounded-3xl py-1 px-3' onClick={() => {setNewPost(true)}}>What is on your mind?</button>
         </div>
         <div className="flex items-center justify-around mt-4 pt-2 border-t border-gray-300">
             <button className="flex items-center">
@@ -34,7 +44,7 @@ const Posts = () => {
           </button>
         </div>
       </div>
-      {postlist ? postlist.map((p)=><Post name={p.name} dp={p.dp} content={p.content} contentType={p.contentType} likes={p.likes} comment={p.comment}/>) : <LoadingPosts/>}
+      {postList ? postList.map((p)=><Post name={p.user_id} created_at={p.created_at} content={p.content} media_url={p.media_url} likes={p.num_likes} comment={p.num_comments}/>) : <LoadingPosts/>}
       
     </div>
   )

@@ -1,15 +1,33 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import like from '../../assets/like.svg'
 import commenticon from "../../assets/comment.svg"
 import liked from "../../assets/liked.svg"
 import CommentPopup from "../comment/CommentPopup"
 
-const Post = ({name, dp, content, contentType, likes, comment}) => {
+const months = ['Jan', 'Feb', 'Mar' ,'Apr', 'May', 'Jun', 'Jul','Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
-    const [isLiked, setIsLiked] = useState(false)
-    const [comments, setComments] = useState(false)
+const Post = ({name, content, media_url, created_at, likes, comment}) => {
+
+  const [isLiked, setIsLiked] = useState(false)
+  const [comments, setComments] = useState(false)
+
+  const [day, setDay] = useState('')
+  const [month, setMonth] = useState('')
+  const [year, setYear] = useState('')
+
+  function setPostTime(){
+    const date = new Date(created_at);
+
+    setDay(date.getUTCDate())
+    setMonth(months[date.getUTCMonth()])
+    setYear(date.getUTCFullYear())
+  }
 
     const msgs = [{name:"Annas", msg:"Very Nice Pic!!!"}, {name:"Ali", msg:"What is wrong with you???"}]
+
+    useEffect(() => {
+      setPostTime()
+    }, [])
 
     const toggleLike = () => {
         setIsLiked(prevState => !prevState)
@@ -29,20 +47,21 @@ const Post = ({name, dp, content, contentType, likes, comment}) => {
         />
         <div>
           <p className="font-bold">{name}</p>
-          <p className="text-sm text-gray-600">10 June, 2018</p>
+          <p className="text-sm text-gray-600">{day + ' ' + month + ', ' + year}</p>
         </div>
       </div>
       <div className="mt-4">
-        {contentType !== 'text' ? <img src={content} alt="Post" className="mt-4 rounded-lg" /> : <p className="text-lg">{content}</p>}
+        <p className="text-lg">{content}</p>
+        {media_url && <img src={media_url} alt="Post" className="mt-4 rounded-lg" />}
       </div>
       <div className="flex items-center justify-between mt-4 pt-2 border-t border-gray-300">
           <button onClick={toggleLike} className="flex items-center">
             {isLiked ? <img className='w-5 h-5 mr-1 mt-0.5' src={liked}/> : <img className='h-5 mr-1 mt-0.5' src={like}/>}
-            <p className="text-gray-600">3 Likes</p>
+            <p className="text-gray-600">{likes + ' likes'}</p>
           </button>
         <button onClick={toggleComments} className='flex items-center'>
           <img className='h-5 mr-1 mt-0.5' src={commenticon}/>
-          <p className="text-gray-600">4 Comments</p>
+          <p className="text-gray-600">{comment + ' comments'}</p>
         </button>
       </div>
       {comments && msgs.map((m)=><CommentPopup name={m.name} msg={m.msg}/>)}

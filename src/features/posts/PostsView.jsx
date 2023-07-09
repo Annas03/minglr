@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import Post from '../../components/post/Post'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchPosts } from './postsSlice'
+import { fetchPosts } from '../../components/post/postsSlice'
 
 const PostsView = () => {
 
