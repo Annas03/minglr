@@ -13,6 +13,12 @@ export const fetchAllPosts = createAsyncThunk('posts/fetchPosts', async () => {
     .catch( error => error)
 })
 
+export const likePost = createAsyncThunk('posts/likePost', async (post_id) => {
+    return await axios.post('http://localhost:5000/api/posts/likes/'+post_id)
+    .then(response => response)
+    .catch(error => error)
+})
+
 // export const fetchUserPosts = createAsyncThunk('posts/fetchPosts', async () => {
 //     return axios.get('http://localhost:5000/api/posts/getAllPosts', {
 //         data : [localStorage.getItem('jwt-token')]

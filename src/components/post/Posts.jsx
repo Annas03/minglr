@@ -7,7 +7,6 @@ import LoadingPosts from '../Loading/LoadingPosts'
 import imageUpload from "../../assets/camera-plus.png"
 import videoUpload from "../../assets/video-upload.png"
 import { fetchAllPosts } from './postsSlice'
-import NewPost from '../NewPost/index'
 
 const Posts = ({setNewPost}) => {
 
@@ -44,7 +43,7 @@ const Posts = ({setNewPost}) => {
           </button>
         </div>
       </div>
-      {postList ? postList.map((p)=><Post name={p.user_id} created_at={p.created_at} content={p.content} media_url={p.media_url} likes={p.num_likes} comment={p.num_comments}/>) : <LoadingPosts/>}
+      {postList ? postList.map((p)=><Post name={p.author.first_name} dp = {p.author.picture_url} created_at={p.created_at} content={p.content} media_url={p.media_url} likes={p.num_likes} comment={p.num_comments}/>) : <LoadingPosts/>}
       
     </div>
   )

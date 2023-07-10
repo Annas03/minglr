@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import like from '../../assets/like.svg'
 import commenticon from "../../assets/comment.svg"
 import liked from "../../assets/liked.svg"
 import CommentPopup from "../comment/CommentPopup"
+import account from "../../assets/account.png"
 
 const months = ['Jan', 'Feb', 'Mar' ,'Apr', 'May', 'Jun', 'Jul','Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
-const Post = ({name, content, media_url, created_at, likes, comment}) => {
+const Post = ({name, content, media_url, created_at, likes, comment, dp}) => {
 
   const [isLiked, setIsLiked] = useState(false)
   const [comments, setComments] = useState(false)
@@ -41,7 +43,7 @@ const Post = ({name, content, media_url, created_at, likes, comment}) => {
     <div className="bg-white rounded-lg shadow-md p-6 mb-6">
       <div className="flex items-center">
         <img
-          src='https://randomuser.me/api/portraits/men/1.jpg'
+          src={!dp ? account : dp}
           alt={name}
           className="w-10 h-10 rounded-full mr-2"
         />
