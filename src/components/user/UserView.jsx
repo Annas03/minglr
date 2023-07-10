@@ -4,7 +4,7 @@ import Posts from '../post/Posts'
 import AboutMe from '../AboutMe/index'
 import bg from '../../assets/bg.jpeg'
 
-const userView = () => {
+const userView = ({cld}) => {
   return (
     <div className='max-w-7xl mx-auto'>
       <div className="max-w-6xl flex-col relative mx-auto">
