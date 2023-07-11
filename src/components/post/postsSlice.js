@@ -7,6 +7,16 @@ const initialState = {
     error:''
 }
 
+export const createPost = createAsyncThunk('posts/fetchPosts', async (postText, resourceUrl) => {
+    return await axios.post('http://localhost:5000/api/posts/createPost', {
+        content:postText,
+        mediaUrl:resourceUrl,
+        },
+        {headers: {'Authorization': 'Bearer ' + localStorage.getItem('jwt-token')}})
+    .then(response => response)
+    .catch(error => error)
+})
+
 export const fetchAllPosts = createAsyncThunk('posts/fetchPosts', async () => {
     return await axios.get('http://localhost:5000/api/posts/getAllPosts')
     .then(response => response)

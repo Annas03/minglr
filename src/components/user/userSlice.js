@@ -5,29 +5,21 @@ import {baseURL} from '../../configs/config'
 const initialState = {
     name:'',
     user_id:null,
+    pictureUrl:null,
     loading: false,
-    error: ''
+    error: null
 }
 
-export const fetchUser = createAsyncThunk('user/fetchUser', async (email, password) => {
-    return await axios.post(baseURL + 'api/users/signin', {
-        email,
-        password
-    }).then(response => response)
+export const fetchUser = createAsyncThunk('user/fetchUser', async (body) => {
+    const data = {
+        email: body.userEmail,
+        password: body.userPassword
+    }
+    return axios.post(baseURL + 'api/users/signin', data).then(response => response)
     .catch(error => error)
-    // return await fetch(baseURL + 'api/users/signin', {
-    //     method:'POST',
-    //     body: JSON.stringify({
-    //       email : email,
-    //       password : password
-    //     }),
-    //     headers: {
-    //       'Content-type': 'application/json',
-    //     },
-    //   }).then(result => result)
 })
 
-export const signUp = createAsyncThunk('user/signin', async (firstName, lastName, email, password, pictureUrl) => {
+export const signUp = createAsyncThunk('user/signup', async (firstName, lastName, email, password, pictureUrl) => {
     return await axios.post(baseURL + 'api/users/signup', {
         firstName,
         lastName,
@@ -45,26 +37,28 @@ const userSlice = createSlice({
         builder.addCase(fetchUser.pending, state => {
             state.loading = true
         })
-        builder.addCase(fetchUser.fulfilled, (state, action) => {
-            state.name = action.payload.data.name
-            state.user_id = action.payload.data.user_id
-            state.loading = false
-        })
         builder.addCase(fetchUser.rejected, (state, action) => {
             state.loading = false
-            state.error = action.payload.message
+            state.error = action    
+        })
+        builder.addCase(fetchUser.fulfilled, (state, action) => {
+            localStorage.setItem('jwt-token',action.payload.data.data.data.token)
+            state.name = action.payload.data.data.data.firstName
+            state.user_id = action.payload.data.data.data.id
+            state.pictureUrl = action.payload.data.data.data.pictureUrl
+            state.loading = false
         })
         builder.addCase(signUp.pending, state => {
             state.loading = true
         })
         builder.addCase(signUp.fulfilled, (state, action) => {
-            state.name = action.payload.data.first_name
-            state.user_id = action.payload.data.id
+            state.name = action.payload.data.data.data.firstName
+            state.user_id = action.payload.data.data.data.id
             state.loading = false
         })
         builder.addCase(signUp.rejected, (state, action) => {
             state.loading = false
-            state.error = action.payload.message
+            state.error = action
         })
     }
 })
