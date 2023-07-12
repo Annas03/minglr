@@ -1,25 +1,26 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchUser } from '../user/userSlice'
-import Error from '../error'
 import { useEffect } from 'react'
+import { useNavigate } from 'react-router'
 
 const Login = ({setTogglePage}) => {
 
     const [userEmail, setUserEmail] = useState('')
     const [userPassword, setUserPassword] = useState('')
-
+    
     const userName = useSelector( state => state.user.name)
-    const loginError = useSelector( state => state.user.error)
 
     const dispatch = useDispatch()
-
+    
     const navigate = useNavigate()
+
+    useEffect( () => {
+      (userName !== '' && localStorage.getItem('jwt-token')) && navigate('/home')
+    }, [userName])
 
     const clickedLogIn = () => {
       dispatch(fetchUser({userEmail, userPassword}))
-      // !loginError ? navigate('/home') : <Error/>
     }
 
   return (

@@ -11,10 +11,12 @@ import { fetchAllPosts, createPost } from './postsSlice'
 
 const Posts = ({setNewPost}) => {
 
-  const postList = useSelector( state => state.posts.posts )
   const [uploadResourceType, setUploadResourceType] = useState(null)
   const [resourceUrl, setResourceUrl] = useState(null)
   const [postText, setPostText] = useState('')
+
+  const postList = useSelector( state => state.posts.posts )
+  const userPicture = useSelector( state => state.user.pictureUrl)
 
   const dispatch = useDispatch()
 
@@ -96,7 +98,7 @@ const Posts = ({setNewPost}) => {
       <div className="bg-white rounded-lg shadow-md pt-6 px-6 pb-2 mb-6">
         <div className='flex'>
           <img
-            src='https://randomuser.me/api/portraits/men/1.jpg'
+            src={userPicture ? userPicture : account}
             className="w-10 h-10 rounded-full mr-2"
           />
           <input className='focus:outline-none bg-gray-100 w-11/12 text-left hover:bg-gray-300 text-gray-400 rounded-3xl py-1 px-3' placeholder='What is on your mind?' value={postText} onChange={(e) => setPostText(e.target.value)}/>

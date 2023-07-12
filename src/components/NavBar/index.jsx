@@ -11,6 +11,8 @@ const NavBar = () => {
 
   const navigate = useNavigate()
 
+  const userPicture = useSelector( state => state.user.pictureUrl )
+
   return (
   <div className='bg-white shadow-md'>
         <header className="pb-4 pt-3 2xl:max-w-screen-2xl lg:mx-4 2xl:mx-auto flex items-center justify-between">
@@ -27,7 +29,7 @@ const NavBar = () => {
             <ul className="flex justify-center mt-2">
             <li className='ml-8'>
              <Link to="Annas">
-               <img className='h-6 w-6 rounded-full transition ease-in-out delay-50 hover:scale-125' src='https://randomuser.me/api/portraits/men/1.jpg'/>
+               <img className='h-6 w-6 rounded-full transition ease-in-out delay-50 hover:scale-125' src={userPicture ? userPicture : account}/>
              </Link>
            </li>
               <li className="ml-8">

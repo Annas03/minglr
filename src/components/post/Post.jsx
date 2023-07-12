@@ -17,6 +17,8 @@ const Post = ({name, content, media_url, created_at, likes, comment, dp}) => {
   const [month, setMonth] = useState('')
   const [year, setYear] = useState('')
 
+  const userPicture = useSelector( state => state.user.userPicture )
+
   function setPostTime(){
     const date = new Date(created_at);
 
@@ -68,7 +70,7 @@ const Post = ({name, content, media_url, created_at, likes, comment, dp}) => {
       </div>
       {comments && msgs.map((m)=><CommentPopup name={m.name} msg={m.msg}/>)}
       <div className='relative pt-4 mt-2'>
-          <img className='absolute h-6 mt-1.5 ml-2 rounded-full' src='https://randomuser.me/api/portraits/men/1.jpg'/>
+          <img className='absolute h-6 mt-1.5 ml-2 rounded-full' src={userPicture ? userPicture : account}/>
           <input type="text" placeholder='Add a Comment here..' className='focus:outline-none text-md w-full pl-9 py-1.5 border border-gray-400 rounded-lg' />
       </div>
     </div>
