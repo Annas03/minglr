@@ -7,12 +7,15 @@ const initialState = {
     error:''
 }
 
-export const createPost = createAsyncThunk('posts/fetchPosts', async (postText, resourceUrl) => {
-    return await axios.post('http://localhost:5000/api/posts/createPost', {
-        content:postText,
-        mediaUrl:resourceUrl,
-        },
-        {headers: {'Authorization': 'Bearer ' + localStorage.getItem('jwt-token')}})
+export const createPost = createAsyncThunk('posts/createPosts', async (data) => {
+    const body = {
+        content:data.postText,
+        mediaUrl:data.resourceUrl
+    }
+    const config = {
+        headers: {'Authorization': 'Bearer ' + localStorage.getItem('jwt-token')}
+    }
+    return await axios.post('http://localhost:5000/api/posts/createPost', body,config)
     .then(response => response)
     .catch(error => error)
 })
@@ -43,8 +46,6 @@ const postsSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(fetchAllPosts.pending, state => {
             state.loading = true
-            state.posts = []
-            state.error = ''
         })
         builder.addCase(fetchAllPosts.fulfilled, (state, action) => {
             state.loading = false
@@ -55,6 +56,14 @@ const postsSlice = createSlice({
             state.loading = false
             state.posts = []
             state.error = action.payload.data.message
+        })
+        builder.addCase(createPost.pending, state => {
+            state.loading = true
+        })
+        builder.addCase(createPost.fulfilled, (state, action) => {
+            state.loading = false
+            state.posts = action.payload.data
+            state.error = ''
         })
     }
 })

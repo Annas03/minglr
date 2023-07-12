@@ -23,7 +23,7 @@ const Posts = ({setNewPost}) => {
   useEffect(() => {dispatch(fetchAllPosts())} , [])
 
   const createUserPost = () => {
-    dispatch(createPost(postText, resourceUrl))
+    dispatch(createPost({postText, resourceUrl}))
     dispatch(fetchAllPosts())
   }
 

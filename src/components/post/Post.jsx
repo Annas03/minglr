@@ -56,7 +56,10 @@ const Post = ({name, content, media_url, created_at, likes, comment, dp}) => {
       </div>
       <div className="mt-4">
         <p className="text-lg">{content}</p>
-        {media_url && <img src={media_url} alt="Post" className="mt-4 rounded-lg" />}
+        {(media_url && media_url.slice(-3,) == 'png') && <img src={media_url} alt="Post" className="mt-4 rounded-lg" />}
+        {(media_url && media_url.slice(-3,) == 'mp4') && (<video width="500" className='mx-auto my-4' controls>
+          <source src={media_url} type="video/mp4"/>
+        </video>)}
       </div>
       <div className="flex items-center justify-between mt-4 pt-2 border-t border-gray-300">
           <button onClick={toggleLike} className="flex items-center">
