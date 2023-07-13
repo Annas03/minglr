@@ -45,16 +45,27 @@ export const signUp = createAsyncThunk('user/signup', async (body) => {
 const userSlice = createSlice({
     name:'user',
     initialState,
+    reducers: {
+        setUser(state)  {
+            state.name = localStorage.getItem('name')
+            state.user_id = localStorage.getItem('user_id')
+            state.pictureUrl = localStorage.getItem('pictureUrl')
+        }
+    },
     extraReducers: (builder) => {
         builder.addCase(fetchUser.pending, state => {
             state.loading = true
         })
-        builder.addCase(fetchUser.fulfilled, (state, action) => {
-            if(action.payload.data){
-                localStorage.setItem('jwt-token',action.payload.data.data.data.token)
-                state.name = action.payload.data.data.data.firstName
-                state.user_id = action.payload.data.data.data.id
-                state.pictureUrl = action.payload.data.data.data.pictureUrl
+        builder.addCase(fetchUser.fulfilled, (state, {payload}) => {
+            if(payload.data){
+                localStorage.setItem('jwt-token',payload.data.data.data.token)
+                localStorage.setItem('name', payload.data.data.data.firstName)
+                localStorage.setItem('user_id', payload.data.data.data.user_id)
+                localStorage.setItem('pictureUrl', payload.data.data.data.pictureUrl)
+                state.name = payload.data.data.data.firstName
+                state.user_id = payload.data.data.data.user_id
+                state.pictureUrl = payload.data.data.data.pictureUrl
+                
                 state.error = null
             }
             else{
@@ -86,4 +97,5 @@ const userSlice = createSlice({
     }
 })
 
+export const { setUser } = userSlice.actions
 export default userSlice.reducer

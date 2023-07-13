@@ -1,16 +1,23 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import NavBar from '../NavBar'
 import FriendsView from '../Friends/FriendsView'
 import Posts from '../post/Posts'
 import { Routes ,Route } from 'react-router'
-import {useSelector} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import UserView from '../user/UserView'
 import AboutMe from '../AboutMe/index'
 import NewPost from '../NewPost'
+import { setUser } from '../user/userSlice'
 
 const HomePage = () => {
 
   const [newpost, setNewPost] = useState(false)
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(setUser())
+  }, [])
 
   return (
     <div className="bg-gray-100 min-h-screen max-h-max">
