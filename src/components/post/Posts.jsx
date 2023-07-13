@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Post from './Post'
 import account from "../../assets/account.png"
@@ -7,24 +7,38 @@ import LoadingPosts from '../Loading/LoadingPosts'
 import imageUpload from "../../assets/camera-plus.png"
 import videoUpload from "../../assets/video-upload.png"
 import { fetchAllPosts, createPost } from './postsSlice'
+import { fetchUserPosts, createUserPosts } from './postsUserSlice'
 
 
-const Posts = ({setNewPost}) => {
+const Posts = ({type}) => {
 
   const [uploadResourceType, setUploadResourceType] = useState(null)
   const [resourceUrl, setResourceUrl] = useState(null)
   const [postText, setPostText] = useState('')
 
-  const postList = useSelector( state => state.posts.posts )
+  const allPostList = useSelector( state => state.posts.posts )
+  const userPostList = useSelector( state => state.userPosts.posts)
+  const userName = useSelector( state => state.user.name)
   const userPicture = useSelector( state => state.user.pictureUrl)
+  const userPostMessage = useSelector(state => state.userPosts.message)
+  const postMessage = useSelector(state => state.posts.message)
 
   const dispatch = useDispatch()
 
-  useEffect(() => {dispatch(fetchAllPosts())} , [])
+  useEffect(() => {
+    if(type == 'allPosts'){
+      dispatch(fetchAllPosts())
+    }
+    else{
+      dispatch(fetchUserPosts())
+    }
+  } , [])
 
   const createUserPost = () => {
-    dispatch(createPost({postText, resourceUrl}))
-    dispatch(fetchAllPosts())
+    type == 'allPosts' ? dispatch(createPost({postText, resourceUrl})) : dispatch(createUserPosts({postText, resourceUrl}))
+    setPostText('')
+    setResourceUrl(null)
+    setUploadResourceType(null)
   }
 
   const handleUpload = (resultEvent) => {
@@ -119,7 +133,8 @@ const Posts = ({setNewPost}) => {
         </video>)}
         <button className='w-11/12 p-1 mt-4 ml-4 rounded-lg bg-black text-white font-semibold' onClick={createUserPost}>Create Post</button>
       </div>
-      {postList ? postList.map((p)=><Post name={p.author.first_name} dp = {p.author.picture_url} created_at={p.created_at} content={p.content} media_url={p.media_url} likes={p.num_likes} comment={p.num_comments}/>) : <LoadingPosts/>}
+      {(allPostList  && type == 'allPosts' && postMessage) && allPostList.map((p)=><Post name={p.author ? p.author.first_name : userName} dp = {p.author ? p.author.picture_url : userPicture} created_at={p.created_at} content={p.content} media_url={p.media_url} likes={p.num_likes} comment={p.num_comments}/>)}
+      {(userPostList  && type == 'specifiPosts' && userPostMessage) && userPostList.map((p)=><Post name={p.author ? p.author.first_name : userName} dp = {p.author ? p.author.picture_url : userPicture} created_at={p.created_at} content={p.content} media_url={p.media_url} likes={p.num_likes} comment={p.num_comments}/>)}
       
     </div>
   )

@@ -8,7 +8,7 @@ const initialState = {
     message:null
 }
 
-export const createPost = createAsyncThunk('posts/createPosts', async (data,{dispatch}) => {
+export const createUserPosts = createAsyncThunk('Userposts/createPosts', async (data, {dispatch}) => {
     const body = {
         content:data.postText,
         mediaUrl:data.resourceUrl
@@ -17,14 +17,8 @@ export const createPost = createAsyncThunk('posts/createPosts', async (data,{dis
         headers: {'Authorization': 'Bearer ' + localStorage.getItem('jwt-token')}
     }
     const response = await axios.post('http://localhost:5000/api/posts/createPost', body,config)
-    await dispatch(fetchAllPosts())
+    await dispatch(fetchUserPosts())
     return response
-})
-
-export const fetchAllPosts = createAsyncThunk('posts/fetchPosts', async () => {
-    return await axios.get('http://localhost:5000/api/posts/getAllPosts')
-    .then(response => response)
-    .catch( error => error)
 })
 
 export const likePost = createAsyncThunk('posts/likePost', async (post_id) => {
@@ -33,30 +27,29 @@ export const likePost = createAsyncThunk('posts/likePost', async (post_id) => {
     .catch(error => error)
 })
 
-const postsSlice = createSlice({
-    name:'posts',
+export const fetchUserPosts = createAsyncThunk('Userposts/fetchUserPosts', async () => {
+    const config = {
+        headers: {'Authorization': 'Bearer ' + localStorage.getItem('jwt-token')}
+    }
+    return axios.get('http://localhost:5000/api/posts/getPostsOfSignedInUser',config).then(response => response).catch( error => error)
+})
+
+const UserpostsSlice = createSlice({
+    name:'postsUser',
     initialState,
     extraReducers: (builder) => {
-        builder.addCase(fetchAllPosts.pending, state => {
+        builder.addCase(fetchUserPosts.pending, state => {
             state.loading = true
-            state.message = null
         })
-        builder.addCase(fetchAllPosts.fulfilled, (state, action) => {
+        builder.addCase(fetchUserPosts.fulfilled, (state, action) => {
             state.loading = false
             state.posts = action.payload.data.data.posts
-            state.error = ''
             state.message = action.payload.data.message
         })
-        builder.addCase(fetchAllPosts.rejected, (state, action) => {
-            state.loading = false
-            state.posts = []
-            state.error = action.payload.data.message
-        })
-        builder.addCase(createPost.pending, state => {
+        builder.addCase(createUserPosts.pending, state => {
             state.message = null
-
         })
-        builder.addCase(createPost.fulfilled, (state, action) => {
+        builder.addCase(createUserPosts.fulfilled, (state, action) => {
             if (action.payload.data.error){
                 state.error = ''
             }
@@ -67,4 +60,4 @@ const postsSlice = createSlice({
     }
 })
 
-export default postsSlice.reducer
+export default UserpostsSlice.reducer

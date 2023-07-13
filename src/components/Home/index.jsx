@@ -20,7 +20,7 @@ const HomePage = () => {
             <Route path='/' element = {
               <div className="grid grid-cols-7 gap-4 z-0">
                 <AboutMe/>
-                <Posts setNewPost = {setNewPost}/>
+                <Posts type ='allPosts'/>
                 <FriendsView/>
                 {newpost && <div className='bg-gray-600 object-fill w-screen h-screen z-10' onClick={() => {setNewPost(false)}}><NewPost/></div>}
               </div>

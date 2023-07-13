@@ -17,7 +17,7 @@ const Post = ({name, content, media_url, created_at, likes, comment, dp}) => {
   const [month, setMonth] = useState('')
   const [year, setYear] = useState('')
 
-  const userPicture = useSelector( state => state.user.userPicture )
+  const userPicture = useSelector( state => state.user.pictureUrl )
 
   function setPostTime(){
     const date = new Date(created_at);
@@ -56,7 +56,7 @@ const Post = ({name, content, media_url, created_at, likes, comment, dp}) => {
       </div>
       <div className="mt-4">
         <p className="text-lg">{content}</p>
-        {(media_url && media_url.slice(-3,) == 'png') && <img src={media_url} alt="Post" className="mt-4 rounded-lg" />}
+        {(media_url && (media_url.slice(-3,) == 'png' || media_url.slice(-3,) == 'jpg')) && <img src={media_url} alt="Post" className="w-full mt-4 rounded-lg" />}
         {(media_url && media_url.slice(-3,) == 'mp4') && (<video width="500" className='mx-auto my-4' controls>
           <source src={media_url} type="video/mp4"/>
         </video>)}
@@ -73,7 +73,7 @@ const Post = ({name, content, media_url, created_at, likes, comment, dp}) => {
       </div>
       {comments && msgs.map((m)=><CommentPopup name={m.name} msg={m.msg}/>)}
       <div className='relative pt-4 mt-2'>
-          <img className='absolute h-6 mt-1.5 ml-2 rounded-full' src={userPicture ? userPicture : account}/>
+          <img className='absolute w-6 h-6 mt-1.5 ml-2 rounded-full' src={userPicture ? userPicture : account}/>
           <input type="text" placeholder='Add a Comment here..' className='focus:outline-none text-md w-full pl-9 py-1.5 border border-gray-400 rounded-lg' />
       </div>
     </div>

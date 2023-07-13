@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 import minglr from "../assets/medium.svg"
 import Login from './Login'
@@ -13,6 +13,10 @@ const LandingPage = () => {
 
   const userName = useSelector( state => state.user.name)
   const loginError = useSelector(state => state.user.error)
+
+  useEffect(() => {
+    localStorage.setItem('jwt-token', null)
+  },[])
 
   
   return (  
