@@ -5,7 +5,8 @@ const initialState = {
     loading:false,
     posts:[],
     error:'',
-    message:null
+    message:null,
+    currentPage:1
 }
 
 export const createUserPosts = createAsyncThunk('Userposts/createPosts', async (data, {dispatch}) => {
@@ -37,6 +38,11 @@ export const fetchUserPosts = createAsyncThunk('Userposts/fetchUserPosts', async
 const UserpostsSlice = createSlice({
     name:'postsUser',
     initialState,
+    reducers:{
+        updateUsersPage (state) {
+            state.currentPage += 1
+        }
+    },
     extraReducers: (builder) => {
         builder.addCase(fetchUserPosts.pending, state => {
             state.loading = true
@@ -60,4 +66,5 @@ const UserpostsSlice = createSlice({
     }
 })
 
+export const {updateUsersPage} = UserpostsSlice.actions
 export default UserpostsSlice.reducer

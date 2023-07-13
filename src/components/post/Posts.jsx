@@ -6,8 +6,8 @@ import vec_img from "../../assets/vec_img.jpg"
 import LoadingPosts from '../Loading/LoadingPosts'
 import imageUpload from "../../assets/camera-plus.png"
 import videoUpload from "../../assets/video-upload.png"
-import { fetchAllPosts, createPost } from './postsSlice'
-import { fetchUserPosts, createUserPosts } from './postsUserSlice'
+import { fetchAllPosts, createPost, updateAllusersPage } from './postsSlice'
+import { fetchUserPosts, createUserPosts, updateUsersPage } from './postsUserSlice'
 
 
 const Posts = ({type}) => {
@@ -22,6 +22,8 @@ const Posts = ({type}) => {
   const userPicture = useSelector( state => state.user.pictureUrl)
   const userPostMessage = useSelector(state => state.userPosts.message)
   const postMessage = useSelector(state => state.posts.message)
+  const allPostsPage = useSelector(state => state.posts.currentPage)
+  const userPostsPage = useSelector(state => state.userPosts.currentPage)
 
   const dispatch = useDispatch()
 
@@ -108,6 +110,15 @@ const Posts = ({type}) => {
     );
   };
 
+  const fetchMorePosts = () => {
+    if(type == "allPosts") {
+      dispatch(updateAllusersPage())
+    }
+    else{
+      dispatch(updateUsersPage())
+    }
+  }
+
   return (
     <div className="px-2 col-span-3">
       <div className="bg-white rounded-lg shadow-md pt-6 px-6 pb-2 mb-6">
@@ -136,7 +147,7 @@ const Posts = ({type}) => {
       </div>
       {(allPostList  && type == 'allPosts' && postMessage) && allPostList.map((p)=><Post isliked={p.isLikedByCurrentUser} name={p.author ? p.author.first_name : userName} dp = {p.author ? p.author.picture_url : userPicture} created_at={p.created_at} content={p.content} media_url={p.media_url} likes={p.num_likes} comment={p.num_comments} id={p.id} />)}
       {(userPostList  && type == 'specifiPosts' && userPostMessage) && userPostList.map((p)=><Post isliked={p.isLikedByCurrentUser} name={p.author ? p.author.first_name : userName} dp = {p.author ? p.author.picture_url : userPicture} created_at={p.created_at} content={p.content} media_url={p.media_url} likes={p.num_likes} comment={p.num_comments} id={p.id}/>)}
-      <button className='rounded-xl border w-2/4 mx-auto mt-4'>Load more</button>
+      <button className='rounded-xl border border-black w-1/3 mx-auto mt-4' onClick={fetchMorePosts}>Load more</button>
       
     </div>
   )

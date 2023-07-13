@@ -15,7 +15,7 @@ const LandingPage = () => {
   const loginError = useSelector(state => state.user.error)
 
   useEffect(() => {
-    localStorage.setItem('jwt-token', null)
+    if(localStorage.getItem('jwt-token')) window.location = '/home'
   },[])
 
   

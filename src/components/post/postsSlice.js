@@ -45,6 +45,13 @@ export const likePost = createAsyncThunk('posts/likePost', async (body) => {
 const postsSlice = createSlice({
     name:'posts',
     initialState,
+    reducers:{
+        updateAllusersPage (state, {dispatch}) {
+            state.currentPage += 1
+            dispatch(fetchAllPosts())
+
+        }
+    },
     extraReducers: (builder) => {
         builder.addCase(fetchAllPosts.pending, state => {
             state.loading = true
@@ -91,4 +98,5 @@ const postsSlice = createSlice({
     }
 })
 
+export const {updateAllusersPage} = postsSlice.actions
 export default postsSlice.reducer
