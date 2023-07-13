@@ -5,7 +5,10 @@ const initialState = {
     loading:false,
     posts:[],
     error:'',
-    message:null
+    message:null,
+    likedMessage:null,
+    likedError:null,
+    currentPage:1
 }
 
 export const createPost = createAsyncThunk('posts/createPosts', async (data,{dispatch}) => {
@@ -22,13 +25,19 @@ export const createPost = createAsyncThunk('posts/createPosts', async (data,{dis
 })
 
 export const fetchAllPosts = createAsyncThunk('posts/fetchPosts', async () => {
-    return await axios.get('http://localhost:5000/api/posts/getAllPosts')
+    const config = {
+        headers: {'Authorization': 'Bearer ' + localStorage.getItem('jwt-token')}
+    }
+    return await axios.get('http://localhost:5000/api/posts/getAllPosts',config)
     .then(response => response)
     .catch( error => error)
 })
 
-export const likePost = createAsyncThunk('posts/likePost', async (post_id) => {
-    return await axios.post('http://localhost:5000/api/posts/likes/'+post_id)
+export const likePost = createAsyncThunk('posts/likePost', async (body) => {
+    const config = {
+        headers: {'Authorization': 'Bearer ' + localStorage.getItem('jwt-token')}
+    }
+    return await axios.post(`http://localhost:5000/api/posts/like/${body.id}`,{},config)
     .then(response => response)
     .catch(error => error)
 })
@@ -63,6 +72,21 @@ const postsSlice = createSlice({
             else{
                 state.message = action.payload.data.message
             }
+        })
+        builder.addCase(likePost.pending, state => {
+            state.likedMessage = null;
+        })
+        builder.addCase(likePost.fulfilled, (state,action) => {
+            if(action.payload.data.message){
+                console.log(state)
+                state.likedMessage = action.payload.data.message;
+            }
+            else{
+                state.likedError = action.payload.data.error
+            }
+        })
+        builder.addCase(likePost.rejected, (state,action) => {
+            state.likedError = 'error'
         })
     }
 })

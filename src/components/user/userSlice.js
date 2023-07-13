@@ -7,8 +7,20 @@ const initialState = {
     user_id:null,
     pictureUrl:null,
     loading: false,
-    error: null
+    error: null,
+    currentPage:1
 }
+
+export const changePicture = createAsyncThunk('user/changePicture', async (body) => {
+    const data = {
+        pictureUrl: body.pictureUrl
+    }
+    const config = {
+        headers: {'Authorization': 'Bearer ' + localStorage.getItem('jwt-token')}
+    }
+    return await axios.put(baseURL + 'api/users/updatePictureUrl', data, config).then(response => {
+        return {response, pictureUrl:body.pictureUrl}}).catch( error => error)
+}) 
 
 export const fetchUser = createAsyncThunk('user/fetchUser', async (body) => {
     const data = {
@@ -27,7 +39,7 @@ export const signUp = createAsyncThunk('user/signup', async (body) => {
         pictureUrl: body.pictureUrl
     }
     return await axios.post(baseURL + 'api/users/signup', data).then(response => response)
-    .catch(error => error => {console.log(error.response.data.error); return error.response.data.error})
+    .catch(error => error)
 })
 
 const userSlice = createSlice({
@@ -61,9 +73,15 @@ const userSlice = createSlice({
                 state.error = null
             }
             else{
-                state.error = action.payload
+                state.error = action.payload.response.data.error
             }
             state.loading = false
+        })
+        builder.addCase(changePicture.pending, state => {
+            state.loading = true
+        })
+        builder.addCase(changePicture.fulfilled, (state,action) => {
+            state.pictureUrl = action.payload.pictureUrl
         })
     }
 })

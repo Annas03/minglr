@@ -26,6 +26,7 @@ const Posts = ({type}) => {
   const dispatch = useDispatch()
 
   useEffect(() => {
+    console.log(allPostList)
     if(type == 'allPosts'){
       dispatch(fetchAllPosts())
     }
@@ -133,8 +134,9 @@ const Posts = ({type}) => {
         </video>)}
         <button className='w-11/12 p-1 mt-4 ml-4 rounded-lg bg-black text-white font-semibold' onClick={createUserPost}>Create Post</button>
       </div>
-      {(allPostList  && type == 'allPosts' && postMessage) && allPostList.map((p)=><Post name={p.author ? p.author.first_name : userName} dp = {p.author ? p.author.picture_url : userPicture} created_at={p.created_at} content={p.content} media_url={p.media_url} likes={p.num_likes} comment={p.num_comments}/>)}
-      {(userPostList  && type == 'specifiPosts' && userPostMessage) && userPostList.map((p)=><Post name={p.author ? p.author.first_name : userName} dp = {p.author ? p.author.picture_url : userPicture} created_at={p.created_at} content={p.content} media_url={p.media_url} likes={p.num_likes} comment={p.num_comments}/>)}
+      {(allPostList  && type == 'allPosts' && postMessage) && allPostList.map((p)=><Post isliked={p.isLikedByCurrentUser} name={p.author ? p.author.first_name : userName} dp = {p.author ? p.author.picture_url : userPicture} created_at={p.created_at} content={p.content} media_url={p.media_url} likes={p.num_likes} comment={p.num_comments} id={p.id} />)}
+      {(userPostList  && type == 'specifiPosts' && userPostMessage) && userPostList.map((p)=><Post isliked={p.isLikedByCurrentUser} name={p.author ? p.author.first_name : userName} dp = {p.author ? p.author.picture_url : userPicture} created_at={p.created_at} content={p.content} media_url={p.media_url} likes={p.num_likes} comment={p.num_comments} id={p.id}/>)}
+      <button className='rounded-xl border w-2/4 mx-auto mt-4'>Load more</button>
       
     </div>
   )
