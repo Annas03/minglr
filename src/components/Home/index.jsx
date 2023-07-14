@@ -32,7 +32,7 @@ const HomePage = () => {
                 {newpost && <div className='bg-gray-600 object-fill w-screen h-screen z-10' onClick={() => {setNewPost(false)}}><NewPost/></div>}
               </div>
             }/>
-            <Route path='Annas' element={<UserView/>}/>
+            <Route path='User' element={<UserView/>}/>
             </Routes>
       </main>
     </div>

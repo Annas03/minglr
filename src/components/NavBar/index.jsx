@@ -28,7 +28,7 @@ const NavBar = () => {
           <nav>
             <ul className="flex justify-center mt-2">
             <li className='ml-8'>
-             <Link to="Annas">
+             <Link to="User">
                <img className='h-6 w-6 rounded-full transition ease-in-out delay-50 hover:scale-125' src={userPicture ? userPicture : account}/>
              </Link>
            </li>
