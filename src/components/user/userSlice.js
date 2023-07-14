@@ -44,6 +44,13 @@ export const signUp = createAsyncThunk('user/signup', async (body) => {
 const userSlice = createSlice({
     name:'user',
     initialState,
+    reducers:{
+        setUser (state) {
+            state.name = localStorage.getItem('name')
+            state.user_id = localStorage.getItem('user_id')
+            state.pictureUrl = localStorage.getItem('pictureUrl')
+        }
+    },
     extraReducers: (builder) => {
         builder.addCase(fetchUser.pending, state => {
             state.loading = true
@@ -88,4 +95,6 @@ const userSlice = createSlice({
         })
     }
 })
+
+export const {setUser} = userSlice.actions
 export default userSlice.reducer

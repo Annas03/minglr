@@ -8,7 +8,8 @@ const initialState = {
     message:null,
     likedMessage:null,
     likedError:null,
-    currentPage:1
+    currentPage:1,
+    limitReached:false
 }
 
 export const createPost = createAsyncThunk('posts/createPosts', async (data,{dispatch}) => {
@@ -20,13 +21,17 @@ export const createPost = createAsyncThunk('posts/createPosts', async (data,{dis
         headers: {'Authorization': 'Bearer ' + localStorage.getItem('jwt-token')}
     }
     const response = await axios.post('http://localhost:5000/api/posts/createPost', body,config)
-    await dispatch(fetchAllPosts())
+    await dispatch(fetchAllPosts({allPostsPage: 1}))
     return response
 })
 
-export const fetchAllPosts = createAsyncThunk('posts/fetchPosts', async () => {
+export const fetchAllPosts = createAsyncThunk('posts/fetchPosts', async (data) => {
     const config = {
-        headers: {'Authorization': 'Bearer ' + localStorage.getItem('jwt-token')}
+        headers: {'Authorization': 'Bearer ' + localStorage.getItem('jwt-token')},
+        params: {
+            page:data.allPostsPage,
+            limit:10,
+        }
     }
     return await axios.get('http://localhost:5000/api/posts/getAllPosts',config)
     .then(response => response)
@@ -46,10 +51,8 @@ const postsSlice = createSlice({
     name:'posts',
     initialState,
     reducers:{
-        updateAllusersPage (state, {dispatch}) {
+        updateAllusersPage (state) {
             state.currentPage += 1
-            dispatch(fetchAllPosts())
-
         }
     },
     extraReducers: (builder) => {
@@ -59,7 +62,18 @@ const postsSlice = createSlice({
         })
         builder.addCase(fetchAllPosts.fulfilled, (state, action) => {
             state.loading = false
-            state.posts = action.payload.data.data.posts
+            if(action.payload.data.data.posts){
+                if(state.currentPage != 1){
+                    state.posts.push(...action.payload.data.data.posts)
+                }
+                else{
+                    state.posts = action.payload.data.data.posts    
+                }
+                state.limitReached = false
+            }
+            else{
+                state.limitReached = true
+            }
             state.error = ''
             state.message = action.payload.data.message
         })

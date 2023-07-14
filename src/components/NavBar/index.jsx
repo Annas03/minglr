@@ -43,12 +43,15 @@ const NavBar = () => {
                </button>
                </li>
                <li className="ml-8 hs-dropdown [--trigger:hover]">
-                  <button id="hs-dropdown-hover-event" type="button" className="hs-dropdown-toggle">
-                    <img className='h-6 hover:animate-spin-slow' src={setting}/>
+                  <button id="hs-dropdown-hover-event" type="button" className="border rounded-lg bg-black text-white px-2 " onClick={() => {
+                    localStorage.removeItem('jwt-token')
+                    localStorage.removeItem('name')
+                    localStorage.removeItem('pictureUrl')
+                    localStorage.removeItem('user_id')
+                    window.location = '/'
+                  }}>
+                    Logout
                   </button>
-                  <div class="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-[15rem] bg-white shadow-md rounded-lg p-2 mt-2 dark:bg-gray-800 dark:border dark:border-gray-700 dark:divide-gray-700 after:h-4 after:absolute after:-bottom-4 after:left-0 after:w-full before:h-4 before:absolute before:-top-4 before:left-0 before:w-full" aria-labelledby="hs-dropdown-hover-event">
-                    <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300" href="#">Newsletter</a>
-                  </div>
                </li>
             </ul>
           </nav>

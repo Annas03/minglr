@@ -24,16 +24,17 @@ const Posts = ({type}) => {
   const postMessage = useSelector(state => state.posts.message)
   const allPostsPage = useSelector(state => state.posts.currentPage)
   const userPostsPage = useSelector(state => state.userPosts.currentPage)
-
+  const userlimitReached = useSelector(state => state.userPosts.limitReached)
+  const allUserslimitReached = useSelector(state => state.posts.limitReached)
   const dispatch = useDispatch()
 
   useEffect(() => {
     console.log(allPostList)
     if(type == 'allPosts'){
-      dispatch(fetchAllPosts())
+      dispatch(fetchAllPosts({allPostsPage : 1}))
     }
     else{
-      dispatch(fetchUserPosts())
+      dispatch(fetchUserPosts({userPostsPage : 1}))
     }
   } , [])
 
@@ -113,9 +114,11 @@ const Posts = ({type}) => {
   const fetchMorePosts = () => {
     if(type == "allPosts") {
       dispatch(updateAllusersPage())
+      dispatch(fetchAllPosts({allPostsPage}))
     }
     else{
       dispatch(updateUsersPage())
+      dispatch(fetchUserPosts({userPostsPage}))
     }
   }
 
@@ -147,7 +150,7 @@ const Posts = ({type}) => {
       </div>
       {(allPostList  && type == 'allPosts' && postMessage) && allPostList.map((p)=><Post isliked={p.isLikedByCurrentUser} name={p.author ? p.author.first_name : userName} dp = {p.author ? p.author.picture_url : userPicture} created_at={p.created_at} content={p.content} media_url={p.media_url} likes={p.num_likes} comment={p.num_comments} id={p.id} />)}
       {(userPostList  && type == 'specifiPosts' && userPostMessage) && userPostList.map((p)=><Post isliked={p.isLikedByCurrentUser} name={p.author ? p.author.first_name : userName} dp = {p.author ? p.author.picture_url : userPicture} created_at={p.created_at} content={p.content} media_url={p.media_url} likes={p.num_likes} comment={p.num_comments} id={p.id}/>)}
-      <button className='rounded-xl border border-black w-1/3 mx-auto mt-4' onClick={fetchMorePosts}>Load more</button>
+      <button className='rounded-xl border border-black w-1/3 mx-auto mt-4' disabled={(userlimitReached || allUserslimitReached)} onClick={fetchMorePosts}>Load more</button>
       
     </div>
   )

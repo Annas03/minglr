@@ -6,7 +6,8 @@ const initialState = {
     posts:[],
     error:'',
     message:null,
-    currentPage:1
+    currentPage:1,
+    limitReached: false
 }
 
 export const createUserPosts = createAsyncThunk('Userposts/createPosts', async (data, {dispatch}) => {
@@ -18,7 +19,7 @@ export const createUserPosts = createAsyncThunk('Userposts/createPosts', async (
         headers: {'Authorization': 'Bearer ' + localStorage.getItem('jwt-token')}
     }
     const response = await axios.post('http://localhost:5000/api/posts/createPost', body,config)
-    await dispatch(fetchUserPosts())
+    await dispatch(fetchUserPosts({userPostsPage: 1}))
     return response
 })
 
@@ -28,9 +29,13 @@ export const likePost = createAsyncThunk('posts/likePost', async (post_id) => {
     .catch(error => error)
 })
 
-export const fetchUserPosts = createAsyncThunk('Userposts/fetchUserPosts', async () => {
+export const fetchUserPosts = createAsyncThunk('Userposts/fetchUserPosts', async (data) => {
     const config = {
-        headers: {'Authorization': 'Bearer ' + localStorage.getItem('jwt-token')}
+        headers: {'Authorization': 'Bearer ' + localStorage.getItem('jwt-token')},
+        params: {
+            page:data.userPostsPage,
+            limit:10,
+        }
     }
     return axios.get('http://localhost:5000/api/posts/getPostsOfSignedInUser',config).then(response => response).catch( error => error)
 })
@@ -49,7 +54,13 @@ const UserpostsSlice = createSlice({
         })
         builder.addCase(fetchUserPosts.fulfilled, (state, action) => {
             state.loading = false
-            state.posts = action.payload.data.data.posts
+            if(action.payload.data.data.posts){
+                state.posts.push(...action.payload.data.data.posts)
+                state.limitReached = false
+            }
+            else{
+                state.limitReached = true
+            }
             state.message = action.payload.data.message
         })
         builder.addCase(createUserPosts.pending, state => {
